@@ -19,49 +19,30 @@ function Router() {
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 'bold' }}>AppTester - vibeflo.io</h1>
-          <nav style={{ display: 'flex', gap: '1rem' }}>
-            <button 
-              onClick={() => navigate('home')}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: currentPage === 'home' ? 'rgba(255,255,255,0.2)' : 'transparent',
-                color: 'white',
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontWeight: currentPage === 'home' ? 'bold' : 'normal'
-              }}
-            >
-              Home
-            </button>
-            <button 
-              onClick={() => navigate('dashboard')}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: currentPage === 'dashboard' ? 'rgba(255,255,255,0.2)' : 'transparent',
-                color: 'white',
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontWeight: currentPage === 'dashboard' ? 'bold' : 'normal'
-              }}
-            >
-              Dashboard
-            </button>
-            <button 
-              onClick={() => navigate('projects')}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: currentPage === 'projects' ? 'rgba(255,255,255,0.2)' : 'transparent',
-                color: 'white',
-                border: '1px solid rgba(255,255,255,0.3)',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontWeight: currentPage === 'projects' ? 'bold' : 'normal'
-              }}
-            >
-              Projects
-            </button>
+          <nav style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            {[
+              { key: 'home', label: 'Home' },
+              { key: 'dashboard', label: 'Dashboard' },
+              { key: 'projects', label: 'Projects' },
+              { key: 'analytics', label: 'Analytics' },
+              { key: 'contact', label: 'Contact' }
+            ].map(page => (
+              <button 
+                key={page.key}
+                onClick={() => navigate(page.key)}
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: currentPage === page.key ? 'rgba(255,255,255,0.2)' : 'transparent',
+                  color: 'white',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontWeight: currentPage === page.key ? 'bold' : 'normal'
+                }}
+              >
+                {page.label}
+              </button>
+            ))}
           </nav>
         </div>
       </header>
@@ -71,6 +52,8 @@ function Router() {
         {currentPage === 'home' && <HomePage />}
         {currentPage === 'dashboard' && <DashboardPage />}
         {currentPage === 'projects' && <ProjectsPage />}
+        {currentPage === 'analytics' && <AnalyticsPage />}
+        {currentPage === 'contact' && <ContactPage />}
       </main>
     </div>
   );
@@ -572,6 +555,483 @@ function ProjectsPage() {
               {Math.round(projects.reduce((acc, p) => acc + p.progress, 0) / projects.length)}%
             </p>
             <p style={{ color: '#64748b', margin: 0 }}>Avg Progress</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Analytics Page Component
+function AnalyticsPage() {
+  const [timeRange, setTimeRange] = useState('7d');
+  const [activeMetric, setActiveMetric] = useState('users');
+
+  // Simulated analytics data
+  const analyticsData = {
+    users: {
+      current: 1247,
+      previous: 1156,
+      growth: 7.9,
+      chartData: [820, 932, 901, 934, 1290, 1330, 1320]
+    },
+    pageviews: {
+      current: 8936,
+      previous: 7892,
+      growth: 13.2,
+      chartData: [5400, 6200, 5900, 6800, 7100, 8200, 8900]
+    },
+    projects: {
+      current: 156,
+      previous: 142,
+      growth: 9.9,
+      chartData: [120, 125, 132, 138, 145, 151, 156]
+    },
+    revenue: {
+      current: 12847,
+      previous: 11234,
+      growth: 14.4,
+      chartData: [8900, 9200, 9800, 10400, 11200, 12100, 12847]
+    }
+  };
+
+  const metrics = [
+    { key: 'users', label: 'Active Users', icon: '👥', color: '#3b82f6' },
+    { key: 'pageviews', label: 'Page Views', icon: '📊', color: '#10b981' },
+    { key: 'projects', label: 'Projects Created', icon: '🚀', color: '#f59e0b' },
+    { key: 'revenue', label: 'Revenue ($)', icon: '💰', color: '#8b5cf6' }
+  ];
+
+  const currentData = analyticsData[activeMetric as keyof typeof analyticsData];
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <h2 style={{ fontSize: '2rem', color: '#1e293b', margin: 0 }}>Analytics Dashboard</h2>
+        <select 
+          value={timeRange} 
+          onChange={(e) => setTimeRange(e.target.value)}
+          style={{
+            padding: '0.5rem 1rem',
+            border: '1px solid #d1d5db',
+            borderRadius: '6px',
+            backgroundColor: 'white'
+          }}
+        >
+          <option value="7d">Last 7 days</option>
+          <option value="30d">Last 30 days</option>
+          <option value="90d">Last 3 months</option>
+        </select>
+      </div>
+
+      {/* Metric Cards */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        gap: '1.5rem',
+        marginBottom: '3rem'
+      }}>
+        {metrics.map(metric => {
+          const data = analyticsData[metric.key as keyof typeof analyticsData];
+          const isActive = activeMetric === metric.key;
+          
+          return (
+            <div 
+              key={metric.key}
+              onClick={() => setActiveMetric(metric.key)}
+              style={{
+                padding: '1.5rem',
+                backgroundColor: 'white',
+                borderRadius: '12px',
+                boxShadow: isActive ? `0 4px 12px ${metric.color}20` : '0 2px 4px rgba(0,0,0,0.1)',
+                border: isActive ? `2px solid ${metric.color}` : '1px solid #e2e8f0',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
+                <div>
+                  <p style={{ fontSize: '0.875rem', color: '#64748b', margin: '0 0 0.5rem 0' }}>{metric.label}</p>
+                  <p style={{ fontSize: '2rem', fontWeight: 'bold', color: metric.color, margin: 0 }}>
+                    {metric.key === 'revenue' ? `$${data.current.toLocaleString()}` : data.current.toLocaleString()}
+                  </p>
+                </div>
+                <span style={{ fontSize: '1.5rem' }}>{metric.icon}</span>
+              </div>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{
+                  padding: '0.25rem 0.5rem',
+                  backgroundColor: data.growth > 0 ? '#dcfce7' : '#fee2e2',
+                  color: data.growth > 0 ? '#166534' : '#dc2626',
+                  borderRadius: '4px',
+                  fontSize: '0.75rem',
+                  fontWeight: 'bold'
+                }}>
+                  {data.growth > 0 ? '+' : ''}{data.growth}%
+                </span>
+                <span style={{ fontSize: '0.875rem', color: '#64748b' }}>vs last period</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Chart Section */}
+      <div style={{
+        backgroundColor: 'white',
+        borderRadius: '12px',
+        padding: '2rem',
+        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+        border: '1px solid #e2e8f0',
+        marginBottom: '2rem'
+      }}>
+        <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>
+          {metrics.find(m => m.key === activeMetric)?.label} Trend
+        </h3>
+        
+        {/* Simple Chart Visualization */}
+        <div style={{ height: '200px', display: 'flex', alignItems: 'end', gap: '8px', padding: '1rem 0' }}>
+          {currentData.chartData.map((value, index) => {
+            const maxValue = Math.max(...currentData.chartData);
+            const height = (value / maxValue) * 150;
+            const color = metrics.find(m => m.key === activeMetric)?.color;
+            
+            return (
+              <div key={index} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{
+                  width: '100%',
+                  height: `${height}px`,
+                  backgroundColor: color,
+                  borderRadius: '4px 4px 0 0',
+                  marginBottom: '0.5rem',
+                  opacity: 0.8
+                }}></div>
+                <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
+                  Day {index + 1}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Top Performing Content */}
+      <div style={{
+        backgroundColor: 'white',
+        borderRadius: '12px',
+        padding: '2rem',
+        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+        border: '1px solid #e2e8f0'
+      }}>
+        <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>Top Performing Pages</h3>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {[
+            { page: '/dashboard', views: 2847, growth: 12.3 },
+            { page: '/projects', views: 1923, growth: 8.7 },
+            { page: '/analytics', views: 1456, growth: 15.2 },
+            { page: '/home', views: 1234, growth: 5.4 },
+            { page: '/contact', views: 892, growth: -2.1 }
+          ].map((item, index) => (
+            <div key={index} style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '1rem',
+              backgroundColor: '#f8fafc',
+              borderRadius: '8px',
+              border: '1px solid #e2e8f0'
+            }}>
+              <div>
+                <p style={{ fontWeight: 'bold', color: '#1e293b', margin: 0 }}>{item.page}</p>
+                <p style={{ fontSize: '0.875rem', color: '#64748b', margin: 0 }}>{item.views} views</p>
+              </div>
+              <span style={{
+                padding: '0.25rem 0.75rem',
+                backgroundColor: item.growth > 0 ? '#dcfce7' : '#fee2e2',
+                color: item.growth > 0 ? '#166534' : '#dc2626',
+                borderRadius: '12px',
+                fontSize: '0.75rem',
+                fontWeight: 'bold'
+              }}>
+                {item.growth > 0 ? '+' : ''}{item.growth}%
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Contact Page Component
+function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
+    setFormData({ name: '', email: '', subject: '', message: '' });
+  };
+
+  return (
+    <div>
+      <h2 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#1e293b' }}>Contact Us</h2>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '3rem' }}>
+        {/* Contact Form */}
+        <div style={{
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          padding: '2rem',
+          boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+          border: '1px solid #e2e8f0'
+        }}>
+          <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>Send us a message</h3>
+          
+          {submitted && (
+            <div style={{
+              padding: '1rem',
+              backgroundColor: '#dcfce7',
+              color: '#166534',
+              borderRadius: '8px',
+              marginBottom: '1.5rem',
+              border: '1px solid #bbf7d0'
+            }}>
+              Thank you! Your message has been sent successfully.
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#374151', fontWeight: 'bold' }}>
+                Name *
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '6px',
+                  fontSize: '1rem'
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#374151', fontWeight: 'bold' }}>
+                Email *
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '6px',
+                  fontSize: '1rem'
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#374151', fontWeight: 'bold' }}>
+                Subject
+              </label>
+              <select
+                name="subject"
+                value={formData.subject}
+                onChange={handleInputChange}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '6px',
+                  fontSize: '1rem'
+                }}
+              >
+                <option value="">Select a subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="support">Technical Support</option>
+                <option value="billing">Billing Question</option>
+                <option value="feature">Feature Request</option>
+                <option value="partnership">Partnership</option>
+              </select>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#374151', fontWeight: 'bold' }}>
+                Message *
+              </label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                required
+                rows={5}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '6px',
+                  fontSize: '1rem',
+                  resize: 'vertical'
+                }}
+              />
+            </div>
+
+            <button type="submit" style={{
+              padding: '1rem 2rem',
+              background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              marginTop: '1rem'
+            }}>
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        {/* Contact Information */}
+        <div>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            padding: '2rem',
+            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+            border: '1px solid #e2e8f0',
+            marginBottom: '2rem'
+          }}>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>Get in touch</h3>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: '#3b82f6',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.2rem'
+                }}>
+                  📧
+                </div>
+                <div>
+                  <h4 style={{ margin: '0 0 0.25rem 0', color: '#1e293b' }}>Email</h4>
+                  <p style={{ margin: 0, color: '#64748b' }}>support@vibeflo.io</p>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: '#10b981',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.2rem'
+                }}>
+                  💬
+                </div>
+                <div>
+                  <h4 style={{ margin: '0 0 0.25rem 0', color: '#1e293b' }}>Live Chat</h4>
+                  <p style={{ margin: 0, color: '#64748b' }}>Available 24/7</p>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: '#f59e0b',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.2rem'
+                }}>
+                  📱
+                </div>
+                <div>
+                  <h4 style={{ margin: '0 0 0.25rem 0', color: '#1e293b' }}>Phone</h4>
+                  <p style={{ margin: 0, color: '#64748b' }}>+1 (555) 123-4567</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* FAQ Section */}
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            padding: '2rem',
+            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+            border: '1px solid #e2e8f0'
+          }}>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>Frequently Asked Questions</h3>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {[
+                {
+                  question: "How do I deploy my application?",
+                  answer: "Use our one-click deployment feature from the dashboard."
+                },
+                {
+                  question: "What technologies are supported?",
+                  answer: "We support React, Node.js, Python, and many other frameworks."
+                },
+                {
+                  question: "Is there a free tier available?",
+                  answer: "Yes, we offer a generous free tier for getting started."
+                },
+                {
+                  question: "How can I upgrade my plan?",
+                  answer: "Visit your account settings to explore available upgrade options."
+                }
+              ].map((faq, index) => (
+                <div key={index} style={{
+                  padding: '1rem',
+                  backgroundColor: '#f8fafc',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0'
+                }}>
+                  <h4 style={{ margin: '0 0 0.5rem 0', color: '#1e293b', fontSize: '1rem' }}>{faq.question}</h4>
+                  <p style={{ margin: 0, color: '#64748b', fontSize: '0.875rem' }}>{faq.answer}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
