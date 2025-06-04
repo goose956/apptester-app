@@ -1,1046 +1,459 @@
-import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Check, Users, Briefcase, MessageSquare, TrendingUp, Shield, Zap, Send, Code2, Rocket, Timer, Star, ArrowRight, Globe, Database, Palette, BarChart3, DollarSign } from "lucide-react";
+import { Link } from "wouter";
 
-// Simple Router Component
-function Router() {
-  const [currentPage, setCurrentPage] = useState('home');
-
-  const navigate = (page: string) => {
-    setCurrentPage(page);
-  };
-
+export default function HomePage() {
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', minHeight: '100vh', backgroundColor: '#f8fafc' }}>
-      {/* Navigation Header */}
-      <header style={{
-        background: 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)',
-        color: 'white',
-        padding: '1rem 2rem',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 'bold' }}>AppTester - vibeflo.io</h1>
-          <nav style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            {[
-              { key: 'home', label: 'Home' },
-              { key: 'dashboard', label: 'Dashboard' },
-              { key: 'projects', label: 'Projects' },
-              { key: 'analytics', label: 'Analytics' },
-              { key: 'contact', label: 'Contact' }
-            ].map(page => (
-              <button 
-                key={page.key}
-                onClick={() => navigate(page.key)}
-                style={{
-                  padding: '0.5rem 1rem',
-                  backgroundColor: currentPage === page.key ? 'rgba(255,255,255,0.2)' : 'transparent',
-                  color: 'white',
-                  border: '1px solid rgba(255,255,255,0.3)',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  fontWeight: currentPage === page.key ? 'bold' : 'normal'
-                }}
-              >
-                {page.label}
-              </button>
-            ))}
-          </nav>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
-        {currentPage === 'home' && <HomePage />}
-        {currentPage === 'dashboard' && <DashboardPage />}
-        {currentPage === 'projects' && <ProjectsPage />}
-        {currentPage === 'analytics' && <AnalyticsPage />}
-        {currentPage === 'contact' && <ContactPage />}
-      </main>
-    </div>
-  );
-}
-
-// Home Page Component
-function HomePage() {
-  const [clickCount, setClickCount] = useState(0);
-
-  return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-gray-900 dark:to-blue-900">
       {/* Hero Section */}
-      <section style={{
-        textAlign: 'center',
-        padding: '4rem 2rem',
-        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
-        borderRadius: '12px',
-        marginBottom: '3rem'
-      }}>
-        <div style={{
-          display: 'inline-block',
-          backgroundColor: '#3b82f6',
-          color: 'white',
-          padding: '0.5rem 1rem',
-          borderRadius: '20px',
-          fontSize: '0.875rem',
-          marginBottom: '1.5rem'
-        }}>
-          🚀 Code • Build • Deploy
-        </div>
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-cyan-600/5 dark:from-blue-600/10 dark:to-cyan-600/10"></div>
+        <div className="absolute top-10 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         
-        <h1 style={{
-          fontSize: '3rem',
-          fontWeight: 'bold',
-          margin: '0 0 1rem 0',
-          background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text'
-        }}>
-          Welcome to vibeflo.io
-        </h1>
-        
-        <p style={{
-          fontSize: '1.25rem',
-          color: '#64748b',
-          maxWidth: '600px',
-          margin: '0 auto 2rem auto',
-          lineHeight: '1.6'
-        }}>
-          From idea to your first customer on one platform. Build, market, and manage your projects with AI-powered tools.
-        </p>
-        
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <button style={{
-            padding: '1rem 2rem',
-            background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
-            fontSize: '1rem',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
-          }}>
-            Start Building Now
-          </button>
-          
-          <button 
-            onClick={() => setClickCount(clickCount + 1)}
-            style={{
-              padding: '1rem 2rem',
-              background: 'white',
-              color: '#3b82f6',
-              border: '2px solid #3b82f6',
-              borderRadius: '8px',
-              fontSize: '1rem',
-              cursor: 'pointer'
-            }}
-          >
-            Interactive Test ({clickCount})
-          </button>
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section style={{ marginBottom: '3rem' }}>
-        <h2 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '2rem', color: '#1e293b' }}>
-          Platform Features
-        </h2>
-        
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '1.5rem'
-        }}>
-          <div style={{
-            padding: '2rem',
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-            border: '1px solid #e2e8f0'
-          }}>
-            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>⚡</div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#1e293b' }}>
-              AI-Powered Development
-            </h3>
-            <p style={{ color: '#64748b', lineHeight: '1.6' }}>
-              Build applications with intelligent code generation and automated deployment workflows.
-            </p>
-          </div>
-          
-          <div style={{
-            padding: '2rem',
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-            border: '1px solid #e2e8f0'
-          }}>
-            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>📊</div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#1e293b' }}>
-              Analytics & Insights
-            </h3>
-            <p style={{ color: '#64748b', lineHeight: '1.6' }}>
-              Track project performance and user engagement with comprehensive analytics dashboard.
-            </p>
-          </div>
-          
-          <div style={{
-            padding: '2rem',
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-            border: '1px solid #e2e8f0'
-          }}>
-            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🚀</div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#1e293b' }}>
-              One-Click Deployment
-            </h3>
-            <p style={{ color: '#64748b', lineHeight: '1.6' }}>
-              Deploy your applications instantly to production with automated CI/CD pipelines.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Status Section */}
-      <section style={{
-        padding: '2rem',
-        backgroundColor: '#dcfce7',
-        borderRadius: '12px',
-        border: '1px solid #bbf7d0'
-      }}>
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#166534' }}>
-          ✅ Application Status
-        </h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-          <div>✅ React Frontend Active</div>
-          <div>✅ TypeScript Support</div>
-          <div>✅ State Management</div>
-          <div>✅ Client-side Routing</div>
-          <div>✅ Interactive Components</div>
-          <div>✅ Production Ready</div>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-// Dashboard Page Component
-function DashboardPage() {
-  const [tasks, setTasks] = useState([
-    { id: 1, text: 'Build React frontend', completed: true },
-    { id: 2, text: 'Deploy to production', completed: true },
-    { id: 3, text: 'Add analytics tracking', completed: false },
-    { id: 4, text: 'Implement user feedback', completed: false }
-  ]);
-  
-  const [newTask, setNewTask] = useState('');
-
-  const addTask = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTask.trim()) return;
-    
-    setTasks([...tasks, {
-      id: Date.now(),
-      text: newTask,
-      completed: false
-    }]);
-    setNewTask('');
-  };
-
-  const toggleTask = (id: number) => {
-    setTasks(tasks.map(task => 
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
-  };
-
-  const stats = {
-    activeProjects: 3,
-    completedTasks: tasks.filter(t => t.completed).length,
-    totalTasks: tasks.length,
-    hoursToday: 6.5
-  };
-
-  return (
-    <div>
-      <h2 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#1e293b' }}>
-        Project Dashboard
-      </h2>
-
-      {/* Stats Cards */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-        gap: '1.5rem',
-        marginBottom: '3rem'
-      }}>
-        <div style={{
-          padding: '1.5rem',
-          backgroundColor: 'white',
-          borderRadius: '8px',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-          border: '1px solid #e2e8f0'
-        }}>
-          <h3 style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '0.5rem' }}>Active Projects</h3>
-          <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#3b82f6', margin: 0 }}>{stats.activeProjects}</p>
-        </div>
-        
-        <div style={{
-          padding: '1.5rem',
-          backgroundColor: 'white',
-          borderRadius: '8px',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-          border: '1px solid #e2e8f0'
-        }}>
-          <h3 style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '0.5rem' }}>Task Progress</h3>
-          <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#10b981', margin: 0 }}>
-            {stats.completedTasks}/{stats.totalTasks}
-          </p>
-        </div>
-        
-        <div style={{
-          padding: '1.5rem',
-          backgroundColor: 'white',
-          borderRadius: '8px',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-          border: '1px solid #e2e8f0'
-        }}>
-          <h3 style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '0.5rem' }}>Hours Today</h3>
-          <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#f59e0b', margin: 0 }}>{stats.hoursToday}</p>
-        </div>
-      </div>
-
-      {/* Task Management */}
-      <div style={{
-        backgroundColor: 'white',
-        borderRadius: '12px',
-        padding: '2rem',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-        border: '1px solid #e2e8f0'
-      }}>
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>Task Management</h3>
-        
-        <form onSubmit={addTask} style={{ marginBottom: '2rem', display: 'flex', gap: '1rem' }}>
-          <input
-            type="text"
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
-            placeholder="Add a new task..."
-            style={{
-              flex: 1,
-              padding: '0.75rem',
-              border: '1px solid #d1d5db',
-              borderRadius: '6px',
-              fontSize: '1rem'
-            }}
-          />
-          <button type="submit" style={{
-            padding: '0.75rem 1.5rem',
-            backgroundColor: '#3b82f6',
-            color: 'white',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: 'pointer'
-          }}>
-            Add Task
-          </button>
-        </form>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          {tasks.map(task => (
-            <div key={task.id} style={{
-              display: 'flex',
-              alignItems: 'center',
-              padding: '1rem',
-              backgroundColor: task.completed ? '#f0fdf4' : '#f8fafc',
-              borderRadius: '6px',
-              border: '1px solid #e2e8f0'
-            }}>
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => toggleTask(task.id)}
-                style={{ marginRight: '1rem' }}
-              />
-              <span style={{
-                textDecoration: task.completed ? 'line-through' : 'none',
-                color: task.completed ? '#6b7280' : '#1e293b',
-                flex: 1
-              }}>
-                {task.text}
-              </span>
-              <span style={{
-                padding: '0.25rem 0.75rem',
-                backgroundColor: task.completed ? '#10b981' : '#f59e0b',
-                color: 'white',
-                borderRadius: '12px',
-                fontSize: '0.75rem'
-              }}>
-                {task.completed ? 'Done' : 'Pending'}
-              </span>
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <div className="mb-8">
+            <div className="inline-flex items-center justify-center mb-6">
+              <Badge className="px-6 py-3 bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-900 text-blue-800 dark:text-blue-200 hover:from-blue-200 hover:to-cyan-200 dark:hover:from-blue-800 dark:hover:to-cyan-800 transition-all duration-300 shadow-lg hover:shadow-xl border-0 text-sm font-medium">
+                <Rocket className="w-4 h-4 mr-2" />
+                Code • Build • Deploy
+              </Badge>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Projects Page Component
-function ProjectsPage() {
-  const [projects] = useState([
-    {
-      id: 1,
-      name: 'E-commerce Platform',
-      status: 'Active',
-      progress: 75,
-      tech: ['React', 'Node.js', 'MongoDB'],
-      deployed: true
-    },
-    {
-      id: 2,
-      name: 'Analytics Dashboard',
-      status: 'In Development',
-      progress: 45,
-      tech: ['TypeScript', 'PostgreSQL', 'Charts.js'],
-      deployed: false
-    },
-    {
-      id: 3,
-      name: 'Mobile App Backend',
-      status: 'Planning',
-      progress: 15,
-      tech: ['Express', 'JWT', 'Redis'],
-      deployed: false
-    }
-  ]);
-
-  return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '2rem', color: '#1e293b', margin: 0 }}>My Projects</h2>
-        <button style={{
-          padding: '0.75rem 1.5rem',
-          background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
-          color: 'white',
-          border: 'none',
-          borderRadius: '6px',
-          cursor: 'pointer'
-        }}>
-          + New Project
-        </button>
-      </div>
-
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-        gap: '1.5rem'
-      }}>
-        {projects.map(project => (
-          <div key={project.id} style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '2rem',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-            border: '1px solid #e2e8f0'
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1e293b', margin: 0 }}>
-                {project.name}
-              </h3>
-              <span style={{
-                padding: '0.25rem 0.75rem',
-                backgroundColor: project.status === 'Active' ? '#10b981' : 
-                                project.status === 'In Development' ? '#f59e0b' : '#64748b',
-                color: 'white',
-                borderRadius: '12px',
-                fontSize: '0.75rem'
-              }}>
-                {project.status}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+              Welcome to{" "}
+              <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 bg-clip-text text-transparent drop-shadow-sm">
+                vibeflo.io
               </span>
-            </div>
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
+              From idea to your first customer on one platform. Build, market, and manage your projects with AI-powered 
+              vibe coding and vibe marketing tools - no experience needed.
+            </p>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-10 py-5 text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 group border-0"
+            >
+              <Rocket className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+              Start Building Now
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Link href="/about">
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-2 border-gray-300 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 text-gray-700 dark:text-gray-300 px-10 py-5 text-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
+              >
+                <Globe className="w-5 h-5 mr-2" />
+                Learn More
+              </Button>
+            </Link>
+          </div>
 
-            <div style={{ marginBottom: '1rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <span style={{ fontSize: '0.875rem', color: '#64748b' }}>Progress</span>
-                <span style={{ fontSize: '0.875rem', color: '#64748b' }}>{project.progress}%</span>
+          {/* Hero Stats with Analytics Dashboard */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 transform hover:scale-105">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <Timer className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-right">
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white">2.5x</div>
+                  <div className="text-green-600 text-sm font-medium">↑ 24% faster</div>
+                </div>
               </div>
-              <div style={{
-                width: '100%',
-                height: '8px',
-                backgroundColor: '#e2e8f0',
-                borderRadius: '4px',
-                overflow: 'hidden'
-              }}>
-                <div style={{
-                  width: `${project.progress}%`,
-                  height: '100%',
-                  backgroundColor: '#3b82f6',
-                  transition: 'width 0.3s ease'
-                }}></div>
-              </div>
-            </div>
-
-            <div style={{ marginBottom: '1.5rem' }}>
-              <p style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '0.5rem' }}>Technologies:</p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                {project.tech.map(tech => (
-                  <span key={tech} style={{
-                    padding: '0.25rem 0.5rem',
-                    backgroundColor: '#f1f5f9',
-                    color: '#475569',
-                    borderRadius: '4px',
-                    fontSize: '0.75rem'
-                  }}>
-                    {tech}
-                  </span>
+              <div className="text-gray-600 dark:text-gray-300 font-medium">Development Speed</div>
+              <div className="text-gray-500 dark:text-gray-400 text-sm">Hours, not days or weeks</div>
+              
+              {/* Mini Chart */}
+              <div className="mt-4 flex items-end space-x-1 h-8">
+                {[40, 65, 45, 80, 60, 95, 85].map((height, i) => (
+                  <div 
+                    key={i} 
+                    className="flex-1 bg-gradient-to-t from-green-400 to-green-500 rounded-sm opacity-70 hover:opacity-90 transition-opacity"
+                    style={{ height: `${height}%` }}
+                  ></div>
                 ))}
               </div>
             </div>
-
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button style={{
-                flex: 1,
-                padding: '0.5rem',
-                backgroundColor: '#3b82f6',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}>
-                View Details
-              </button>
-              {project.deployed && (
-                <button style={{
-                  padding: '0.5rem 1rem',
-                  backgroundColor: '#10b981',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer'
-                }}>
-                  🚀 Live
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Project Stats */}
-      <div style={{
-        marginTop: '3rem',
-        padding: '2rem',
-        backgroundColor: 'white',
-        borderRadius: '12px',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-        border: '1px solid #e2e8f0'
-      }}>
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>Project Overview</h3>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '1rem'
-        }}>
-          <div style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#3b82f6', margin: 0 }}>{projects.length}</p>
-            <p style={{ color: '#64748b', margin: 0 }}>Total Projects</p>
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#10b981', margin: 0 }}>
-              {projects.filter(p => p.deployed).length}
-            </p>
-            <p style={{ color: '#64748b', margin: 0 }}>Deployed</p>
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#f59e0b', margin: 0 }}>
-              {Math.round(projects.reduce((acc, p) => acc + p.progress, 0) / projects.length)}%
-            </p>
-            <p style={{ color: '#64748b', margin: 0 }}>Avg Progress</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Analytics Page Component
-function AnalyticsPage() {
-  const [timeRange, setTimeRange] = useState('7d');
-  const [activeMetric, setActiveMetric] = useState('users');
-
-  // Simulated analytics data
-  const analyticsData = {
-    users: {
-      current: 1247,
-      previous: 1156,
-      growth: 7.9,
-      chartData: [820, 932, 901, 934, 1290, 1330, 1320]
-    },
-    pageviews: {
-      current: 8936,
-      previous: 7892,
-      growth: 13.2,
-      chartData: [5400, 6200, 5900, 6800, 7100, 8200, 8900]
-    },
-    projects: {
-      current: 156,
-      previous: 142,
-      growth: 9.9,
-      chartData: [120, 125, 132, 138, 145, 151, 156]
-    },
-    revenue: {
-      current: 12847,
-      previous: 11234,
-      growth: 14.4,
-      chartData: [8900, 9200, 9800, 10400, 11200, 12100, 12847]
-    }
-  };
-
-  const metrics = [
-    { key: 'users', label: 'Active Users', icon: '👥', color: '#3b82f6' },
-    { key: 'pageviews', label: 'Page Views', icon: '📊', color: '#10b981' },
-    { key: 'projects', label: 'Projects Created', icon: '🚀', color: '#f59e0b' },
-    { key: 'revenue', label: 'Revenue ($)', icon: '💰', color: '#8b5cf6' }
-  ];
-
-  const currentData = analyticsData[activeMetric as keyof typeof analyticsData];
-
-  return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '2rem', color: '#1e293b', margin: 0 }}>Analytics Dashboard</h2>
-        <select 
-          value={timeRange} 
-          onChange={(e) => setTimeRange(e.target.value)}
-          style={{
-            padding: '0.5rem 1rem',
-            border: '1px solid #d1d5db',
-            borderRadius: '6px',
-            backgroundColor: 'white'
-          }}
-        >
-          <option value="7d">Last 7 days</option>
-          <option value="30d">Last 30 days</option>
-          <option value="90d">Last 3 months</option>
-        </select>
-      </div>
-
-      {/* Metric Cards */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '1.5rem',
-        marginBottom: '3rem'
-      }}>
-        {metrics.map(metric => {
-          const data = analyticsData[metric.key as keyof typeof analyticsData];
-          const isActive = activeMetric === metric.key;
-          
-          return (
-            <div 
-              key={metric.key}
-              onClick={() => setActiveMetric(metric.key)}
-              style={{
-                padding: '1.5rem',
-                backgroundColor: 'white',
-                borderRadius: '12px',
-                boxShadow: isActive ? `0 4px 12px ${metric.color}20` : '0 2px 4px rgba(0,0,0,0.1)',
-                border: isActive ? `2px solid ${metric.color}` : '1px solid #e2e8f0',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
-                <div>
-                  <p style={{ fontSize: '0.875rem', color: '#64748b', margin: '0 0 0.5rem 0' }}>{metric.label}</p>
-                  <p style={{ fontSize: '2rem', fontWeight: 'bold', color: metric.color, margin: 0 }}>
-                    {metric.key === 'revenue' ? `$${data.current.toLocaleString()}` : data.current.toLocaleString()}
-                  </p>
+            
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 transform hover:scale-105">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <Rocket className="w-6 h-6 text-white" />
                 </div>
-                <span style={{ fontSize: '1.5rem' }}>{metric.icon}</span>
+                <div className="text-right">
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white">Free</div>
+                  <div className="text-blue-600 text-sm font-medium">Get Started</div>
+                </div>
               </div>
+              <div className="text-gray-600 dark:text-gray-300 font-medium">Forever Tier</div>
+              <div className="text-gray-500 dark:text-gray-400 text-sm">Build and deploy instantly</div>
               
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{
-                  padding: '0.25rem 0.5rem',
-                  backgroundColor: data.growth > 0 ? '#dcfce7' : '#fee2e2',
-                  color: data.growth > 0 ? '#166534' : '#dc2626',
-                  borderRadius: '4px',
-                  fontSize: '0.75rem',
-                  fontWeight: 'bold'
-                }}>
-                  {data.growth > 0 ? '+' : ''}{data.growth}%
-                </span>
-                <span style={{ fontSize: '0.875rem', color: '#64748b' }}>vs last period</span>
+              {/* Mini Progress Ring */}
+              <div className="mt-4 flex items-center justify-center">
+                <div className="relative w-16 h-16">
+                  <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
+                    <path
+                      className="text-gray-300 dark:text-gray-600"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      fill="none"
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <path
+                      className="text-blue-500"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeDasharray="100, 100"
+                      strokeLinecap="round"
+                      fill="none"
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center text-xs font-bold text-blue-600">100%</div>
+                </div>
               </div>
             </div>
-          );
-        })}
-      </div>
-
-      {/* Chart Section */}
-      <div style={{
-        backgroundColor: 'white',
-        borderRadius: '12px',
-        padding: '2rem',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-        border: '1px solid #e2e8f0',
-        marginBottom: '2rem'
-      }}>
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>
-          {metrics.find(m => m.key === activeMetric)?.label} Trend
-        </h3>
-        
-        {/* Simple Chart Visualization */}
-        <div style={{ height: '200px', display: 'flex', alignItems: 'end', gap: '8px', padding: '1rem 0' }}>
-          {currentData.chartData.map((value, index) => {
-            const maxValue = Math.max(...currentData.chartData);
-            const height = (value / maxValue) * 150;
-            const color = metrics.find(m => m.key === activeMetric)?.color;
             
-            return (
-              <div key={index} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div style={{
-                  width: '100%',
-                  height: `${height}px`,
-                  backgroundColor: color,
-                  borderRadius: '4px 4px 0 0',
-                  marginBottom: '0.5rem',
-                  opacity: 0.8
-                }}></div>
-                <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
-                  Day {index + 1}
-                </span>
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 transform hover:scale-105">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <Code2 className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-right">
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white">Zero</div>
+                  <div className="text-purple-600 text-sm font-medium">Required</div>
+                </div>
               </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Top Performing Content */}
-      <div style={{
-        backgroundColor: 'white',
-        borderRadius: '12px',
-        padding: '2rem',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-        border: '1px solid #e2e8f0'
-      }}>
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>Top Performing Pages</h3>
-        
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {[
-            { page: '/dashboard', views: 2847, growth: 12.3 },
-            { page: '/projects', views: 1923, growth: 8.7 },
-            { page: '/analytics', views: 1456, growth: 15.2 },
-            { page: '/home', views: 1234, growth: 5.4 },
-            { page: '/contact', views: 892, growth: -2.1 }
-          ].map((item, index) => (
-            <div key={index} style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '1rem',
-              backgroundColor: '#f8fafc',
-              borderRadius: '8px',
-              border: '1px solid #e2e8f0'
-            }}>
-              <div>
-                <p style={{ fontWeight: 'bold', color: '#1e293b', margin: 0 }}>{item.page}</p>
-                <p style={{ fontSize: '0.875rem', color: '#64748b', margin: 0 }}>{item.views} views</p>
+              <div className="text-gray-600 dark:text-gray-300 font-medium">Coding Experience</div>
+              <div className="text-gray-500 dark:text-gray-400 text-sm">AI handles the complexity</div>
+              
+              {/* Skill Bars */}
+              <div className="mt-4 space-y-2">
+                {[
+                  { label: "AI", width: 100 },
+                  { label: "You", width: 30 },
+                  { label: "Code", width: 0 }
+                ].map((skill, i) => (
+                  <div key={i} className="flex items-center space-x-2">
+                    <div className="text-xs text-gray-500 w-6">{skill.label}</div>
+                    <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                      <div 
+                        className="bg-gradient-to-r from-purple-400 to-purple-500 h-2 rounded-full transition-all duration-1000"
+                        style={{ width: `${skill.width}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <span style={{
-                padding: '0.25rem 0.75rem',
-                backgroundColor: item.growth > 0 ? '#dcfce7' : '#fee2e2',
-                color: item.growth > 0 ? '#166534' : '#dc2626',
-                borderRadius: '12px',
-                fontSize: '0.75rem',
-                fontWeight: 'bold'
-              }}>
-                {item.growth > 0 ? '+' : ''}{item.growth}%
-              </span>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-    </div>
-  );
-}
+      </section>
 
-// Contact Page Component
-function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [submitted, setSubmitted] = useState(false);
+      {/* Benefits Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Why Choose vibeflo.io?
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              The complete vibe project management platform with AI-powered tools for vibe coding, vibe marketing, and everything you need from idea to your first customer
+            </p>
+          </div>
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="group border-2 border-blue-100 hover:border-blue-300 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-800 dark:to-blue-900/30 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-2xl transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500"></div>
+              <CardHeader className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transition-shadow group-hover:animate-pulse">
+                  <Code2 className="w-7 h-7 text-white" />
+                </div>
+                <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  AI-Powered Vibe Coding
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-300">
+                  Build full-stack applications with intelligent vibe coding that understands your vision
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <ul className="space-y-3">
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">AI code generation</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Smart auto-completion</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Instant deployment</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-  };
+            <Card className="group border-2 border-purple-100 hover:border-purple-300 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 bg-gradient-to-br from-white to-purple-50/30 dark:from-gray-800 dark:to-purple-900/30 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-2xl transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500"></div>
+              <CardHeader className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transition-shadow group-hover:animate-pulse">
+                  <TrendingUp className="w-7 h-7 text-white" />
+                </div>
+                <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                  AI-Powered Vibe Marketing
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-300">
+                  Reach your first customers with intelligent marketing tools that work around the clock
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <ul className="space-y-3">
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">AI content creation</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Automated campaigns</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Customer insights</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
 
-  return (
-    <div>
-      <h2 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#1e293b' }}>Contact Us</h2>
+            <Card className="group border-2 border-green-100 hover:border-green-300 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 bg-gradient-to-br from-white to-green-50/30 dark:from-gray-800 dark:to-green-900/30 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-full blur-2xl transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500"></div>
+              <CardHeader className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transition-shadow group-hover:animate-pulse">
+                  <Shield className="w-7 h-7 text-white" />
+                </div>
+                <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                  Complete Project Management
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-300">
+                  From initial idea to customer acquisition - manage every aspect of your project lifecycle
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <ul className="space-y-3">
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Idea validation</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Roadmap planning</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Launch tracking</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '3rem' }}>
-        {/* Contact Form */}
-        <div style={{
-          backgroundColor: 'white',
-          borderRadius: '12px',
-          padding: '2rem',
-          boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-          border: '1px solid #e2e8f0'
-        }}>
-          <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>Send us a message</h3>
-          
-          {submitted && (
-            <div style={{
-              padding: '1rem',
-              backgroundColor: '#dcfce7',
-              color: '#166534',
-              borderRadius: '8px',
-              marginBottom: '1.5rem',
-              border: '1px solid #bbf7d0'
-            }}>
-              Thank you! Your message has been sent successfully.
+            <Card className="group border-2 border-orange-100 hover:border-orange-300 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 bg-gradient-to-br from-white to-orange-50/30 dark:from-gray-800 dark:to-orange-900/30 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-400/20 to-yellow-400/20 rounded-full blur-2xl transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500"></div>
+              <CardHeader className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transition-shadow group-hover:animate-pulse">
+                  <BarChart3 className="w-7 h-7 text-white" />
+                </div>
+                <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                  Software Roadmaps
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-300">
+                  Create comprehensive project roadmaps and track progress with intelligent planning tools
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <ul className="space-y-3">
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Milestone tracking</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Timeline visualization</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Progress analytics</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="group border-2 border-indigo-100 hover:border-indigo-300 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 bg-gradient-to-br from-white to-indigo-50/30 dark:from-gray-800 dark:to-indigo-900/30 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-400/20 to-violet-400/20 rounded-full blur-2xl transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500"></div>
+              <CardHeader className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transition-shadow group-hover:animate-pulse">
+                  <Users className="w-7 h-7 text-white" />
+                </div>
+                <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  Shared Project Collaboration
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-300">
+                  Work together on projects with real-time collaboration and team management features
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <ul className="space-y-3">
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Team workspaces</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Live editing</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Version control</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="group border-2 border-emerald-100 hover:border-emerald-300 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 bg-gradient-to-br from-white to-emerald-50/30 dark:from-gray-800 dark:to-emerald-900/30 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 rounded-full blur-2xl transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500"></div>
+              <CardHeader className="relative z-10">
+                <div className="w-14 h-14 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transition-shadow group-hover:animate-pulse">
+                  <DollarSign className="w-7 h-7 text-white" />
+                </div>
+                <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                  Affordable & Free Tier
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-300">
+                  The cheapest vibe coding platform with a generous free tier to get you started
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <ul className="space-y-3">
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Free starter projects</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">Transparent pricing</span>
+                  </li>
+                  <li className="flex items-center group/item">
+                    <div className="w-5 h-5 bg-gradient-to-r from-green-400 to-green-500 rounded-full flex items-center justify-center mr-3 shadow-sm">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-800 dark:group-hover/item:text-gray-200 transition-colors">No hidden fees</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Speed Challenge Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="border-2 border-dashed border-blue-300 rounded-lg p-8 bg-white dark:bg-gray-700">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Zap className="w-8 h-8 text-blue-600" />
             </div>
-          )}
-
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#374151', fontWeight: 'bold' }}>
-                Name *
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                style={{
-                  width: '100%',
-                  padding: '0.75rem',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '6px',
-                  fontSize: '1rem'
-                }}
-              />
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              Fastest App Development, Guaranteed
+            </h3>
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+              Think you know a platform that can build and deploy full-stack applications faster than vibeflo.io? 
+              Our AI-powered vibe coding gets you from concept to live app in record time.
+            </p>
+            <div className="bg-blue-50 dark:bg-blue-900 rounded-lg p-6 mb-6">
+              <p className="text-blue-800 dark:text-blue-200 font-medium">
+                Challenge accepted! If you believe another platform can out-code vibeflo.io in speed, 
+                let's put it to the test. Same app idea, head-to-head development race.
+              </p>
             </div>
+            <Link href="/contact">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3">
+                <Send className="w-4 h-4 mr-2" />
+                Take the Challenge
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
 
-            <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#374151', fontWeight: 'bold' }}>
-                Email *
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                style={{
-                  width: '100%',
-                  padding: '0.75rem',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '6px',
-                  fontSize: '1rem'
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#374151', fontWeight: 'bold' }}>
-                Subject
-              </label>
-              <select
-                name="subject"
-                value={formData.subject}
-                onChange={handleInputChange}
-                style={{
-                  width: '100%',
-                  padding: '0.75rem',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '6px',
-                  fontSize: '1rem'
-                }}
+      {/* CTA Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-cyan-600">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Ready to Start Building?
+          </h2>
+          <p className="text-xl text-blue-100 mb-8">
+            Transform your ideas into reality with AI-powered vibe coding and vibe marketing. From concept to your first customer - all on one platform.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg" 
+              className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg"
+            >
+              <Zap className="w-5 h-5 mr-2" />
+              Start Free Project
+            </Button>
+            <Link href="/about">
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg"
               >
-                <option value="">Select a subject</option>
-                <option value="general">General Inquiry</option>
-                <option value="support">Technical Support</option>
-                <option value="billing">Billing Question</option>
-                <option value="feature">Feature Request</option>
-                <option value="partnership">Partnership</option>
-              </select>
-            </div>
-
-            <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: '#374151', fontWeight: 'bold' }}>
-                Message *
-              </label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-                rows={5}
-                style={{
-                  width: '100%',
-                  padding: '0.75rem',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '6px',
-                  fontSize: '1rem',
-                  resize: 'vertical'
-                }}
-              />
-            </div>
-
-            <button type="submit" style={{
-              padding: '1rem 2rem',
-              background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: '1rem',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              marginTop: '1rem'
-            }}>
-              Send Message
-            </button>
-          </form>
-        </div>
-
-        {/* Contact Information */}
-        <div>
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '2rem',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-            border: '1px solid #e2e8f0',
-            marginBottom: '2rem'
-          }}>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>Get in touch</h3>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  backgroundColor: '#3b82f6',
-                  borderRadius: '8px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.2rem'
-                }}>
-                  📧
-                </div>
-                <div>
-                  <h4 style={{ margin: '0 0 0.25rem 0', color: '#1e293b' }}>Email</h4>
-                  <p style={{ margin: 0, color: '#64748b' }}>support@vibeflo.io</p>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  backgroundColor: '#10b981',
-                  borderRadius: '8px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.2rem'
-                }}>
-                  💬
-                </div>
-                <div>
-                  <h4 style={{ margin: '0 0 0.25rem 0', color: '#1e293b' }}>Live Chat</h4>
-                  <p style={{ margin: 0, color: '#64748b' }}>Available 24/7</p>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  backgroundColor: '#f59e0b',
-                  borderRadius: '8px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.2rem'
-                }}>
-                  📱
-                </div>
-                <div>
-                  <h4 style={{ margin: '0 0 0.25rem 0', color: '#1e293b' }}>Phone</h4>
-                  <p style={{ margin: 0, color: '#64748b' }}>+1 (555) 123-4567</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* FAQ Section */}
-          <div style={{
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            padding: '2rem',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-            border: '1px solid #e2e8f0'
-          }}>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>Frequently Asked Questions</h3>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {[
-                {
-                  question: "How do I deploy my application?",
-                  answer: "Use our one-click deployment feature from the dashboard."
-                },
-                {
-                  question: "What technologies are supported?",
-                  answer: "We support React, Node.js, Python, and many other frameworks."
-                },
-                {
-                  question: "Is there a free tier available?",
-                  answer: "Yes, we offer a generous free tier for getting started."
-                },
-                {
-                  question: "How can I upgrade my plan?",
-                  answer: "Visit your account settings to explore available upgrade options."
-                }
-              ].map((faq, index) => (
-                <div key={index} style={{
-                  padding: '1rem',
-                  backgroundColor: '#f8fafc',
-                  borderRadius: '8px',
-                  border: '1px solid #e2e8f0'
-                }}>
-                  <h4 style={{ margin: '0 0 0.5rem 0', color: '#1e293b', fontSize: '1rem' }}>{faq.question}</h4>
-                  <p style={{ margin: 0, color: '#64748b', fontSize: '0.875rem' }}>{faq.answer}</p>
-                </div>
-              ))}
-            </div>
+                Learn More
+              </Button>
+            </Link>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
-
-function App() {
-  return <Router />;
-}
-
-export default App;
